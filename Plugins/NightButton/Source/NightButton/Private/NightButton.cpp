@@ -31,13 +31,14 @@ void FNightButtonModule::StartupModule()
 		FCanExecuteAction());
 
 	UToolMenus::RegisterStartupCallback(FSimpleMulticastDelegate::FDelegate::CreateRaw(this, &FNightButtonModule::RegisterMenus));
+
+	/*MenuExtender = MakeShareable(new FExtender);
+	MenuExtender->AddMenuBarExtension("Window", EExtensionHook::After, nullptr,FMenuBarExtensionDelegate::CreateRaw(this,&FNightButtonModule::MakePulldownMenu));
+	LevelEditorMenuExtensibilityManager->AddExtender(MenuExtender);*/
 }
 
 void FNightButtonModule::ShutdownModule()
 {
-	// This function may be called during shutdown to clean up your module.  For modules that support dynamic reloading,
-	// we call this function before unloading the module.
-
 	UToolMenus::UnRegisterStartupCallback(this);
 
 	UToolMenus::UnregisterOwner(this);
@@ -50,10 +51,15 @@ void FNightButtonModule::ShutdownModule()
 void FNightButtonModule::PluginButtonClicked()
 {
 	// Put your "OnButtonClicked" stuff here
-	FText DialogText = FText::FromString("Changing scene to Night");
-	FMessageDialog::Open(EAppMsgType::Ok, DialogText);
+	/*FText DialogText = FText::FromString("Changing scene to Night");
+	FMessageDialog::Open(EAppMsgType::Ok, DialogText);*/
 
-	AActor* FoundActor;
+	SNew(SDockTab)
+		[
+			SNew(SButton)
+			.Text(FText::FromString("test"))
+		];
+	/*AActor* FoundActor;
 	FoundActor = FindActor(ADirectionalLight::StaticClass());
 
 	if(FoundActor)
@@ -84,7 +90,34 @@ void FNightButtonModule::PluginButtonClicked()
 				PPVol->bUnbound = true;
 			}
 		}
-	}
+	}*/
+}
+
+void FNightButtonModule::AddMenuExtension(const FMenuExtensionDelegate& ExtensionDelegate, FName ExtensionHook,
+	const TSharedPtr<FUICommandList>& CommandList, EExtensionHook::Position Position)
+{
+	MenuExtender->AddMenuExtension(ExtensionHook, Position, CommandList, ExtensionDelegate);
+}
+
+void FNightButtonModule::MakePulldownMenu(FMenuBarBuilder& MenuBarBuilder)
+{
+	MenuBarBuilder.AddPullDownMenu(
+		FText::FromString("Example"),
+		FText::FromString("Open the Example menu"),
+		FNewMenuDelegate::CreateRaw(this, &FNightButtonModule::FillPulldownMenu),
+		"Example",
+		FName(TEXT("ExampleMenu")));
+}
+
+void FNightButtonModule::FillPulldownMenu(FMenuBuilder& MenuBuilder)
+{
+	MenuBuilder.BeginSection("ExampleSection", FText::FromString("Section 1"));
+	MenuBuilder.AddMenuSeparator(FName("Section_1"));
+	MenuBuilder.EndSection();
+
+	MenuBuilder.BeginSection("ExampleSection", FText::FromString("Section 2"));
+	MenuBuilder.AddMenuSeparator(FName("Section_2"));
+	MenuBuilder.EndSection();
 }
 
 void FNightButtonModule::RegisterMenus()

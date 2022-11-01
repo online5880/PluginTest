@@ -18,6 +18,20 @@ public:
 	
 	/** This function will be bound to Command. */
 	void PluginButtonClicked();
+
+	void AddMenuExtension(const FMenuExtensionDelegate& ExtensionDelegate, FName ExtensionHook,
+		const TSharedPtr<FUICommandList>& CommandList = nullptr, EExtensionHook::Position Position = EExtensionHook::Before);
+
+	TSharedRef<FWorkspaceItem> GetMenuRoot() { return MenuRoot; }
+
+protected:
+	TSharedPtr<FExtensibilityManager> LevelEditorMenuExtensibilityManager;
+	TSharedPtr<FExtender> MenuExtender;
+
+	static TSharedRef<FWorkspaceItem> MenuRoot;
+
+	void MakePulldownMenu(FMenuBarBuilder& MenuBarBuilder);
+	void FillPulldownMenu(FMenuBuilder& MenuBuilder);
 	
 private:
 
@@ -25,6 +39,16 @@ private:
 
 	AActor* FindActor(TSubclassOf<AActor> ActorClass);
 	AActor* AddActor(TSubclassOf<AActor> ActorClass);
+
+	static inline FNightButtonModule& Get()
+	{
+		return FModuleManager::LoadModuleChecked<FNightButtonModule>("NightButtonModule");
+	}
+
+	static inline bool IsAvailable()
+	{
+		return FModuleManager::Get().IsModuleLoaded("NightButtonModule");
+	}
 
 
 private:

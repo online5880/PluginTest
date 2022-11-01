@@ -9,6 +9,6 @@ public class PluginTestEditorTarget : TargetRules
 	{
 		Type = TargetType.Editor;
 		DefaultBuildSettings = BuildSettingsVersion.V2;
-		ExtraModuleNames.AddRange( new string[] { "PluginTest" } );
+		ExtraModuleNames.AddRange( new string[] { "PluginTest","NightButton" } );
 	}
 }

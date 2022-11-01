@@ -9,6 +9,6 @@ public class PluginTestTarget : TargetRules
 	{
 		Type = TargetType.Game;
 		DefaultBuildSettings = BuildSettingsVersion.V2;
-		ExtraModuleNames.AddRange( new string[] { "PluginTest" } );
+		ExtraModuleNames.AddRange( new string[] { "PluginTest","NightButton" } );
 	}
 }

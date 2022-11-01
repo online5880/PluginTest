@@ -2,20 +2,21 @@
 	"FileVersion": 3,
 	"Version": 1,
 	"VersionName": "1.0",
-	"FriendlyName": "NightButton",
-	"Description": "Night Button - Test",
+	"FriendlyName": "TestPlugin",
+	"Description": "",
 	"Category": "Other",
-	"CreatedBy": "Rogan",
+	"CreatedBy": "me",
 	"CreatedByURL": "",
 	"DocsURL": "",
 	"MarketplaceURL": "",
 	"SupportURL": "",
-	"EngineVersion": "5.0.0",
 	"CanContainContent": false,
-	"Installed": true,
+	"IsBetaVersion": false,
+	"IsExperimentalVersion": false,
+	"Installed": false,
 	"Modules": [
 		{
-			"Name": "NightButton",
+			"Name": "TestPlugin",
 			"Type": "Editor",
 			"LoadingPhase": "Default"
 		}

@@ -10,8 +10,6 @@
 
 #define RootToContentDir Style->RootToContentDir
 
-#define IMAGE_BRUSH( RelativePath, ... ) FSlateImageBrush(RootToContentDir(RelativePath, TEXT(".png")), __VA_ARGS__)
-
 TSharedPtr<FSlateStyleSet> FNightButtonStyle::StyleInstance = nullptr;
 
 void FNightButtonStyle::Initialize()
@@ -39,14 +37,13 @@ FName FNightButtonStyle::GetStyleSetName()
 
 const FVector2D Icon16x16(16.0f, 16.0f);
 const FVector2D Icon20x20(20.0f, 20.0f);
-const FVector2D Icon32x32(32.0f, 32.0f);
 
 TSharedRef< FSlateStyleSet > FNightButtonStyle::Create()
 {
 	TSharedRef< FSlateStyleSet > Style = MakeShareable(new FSlateStyleSet("NightButtonStyle"));
 	Style->SetContentRoot(IPluginManager::Get().FindPlugin("NightButton")->GetBaseDir() / TEXT("Resources"));
 
-	Style->Set("NightButton.PluginAction", new IMAGE_BRUSH(TEXT("ButtonIcon"), Icon20x20));
+	Style->Set("NightButton.PluginAction", new IMAGE_BRUSH_SVG(TEXT("PlaceholderButtonIcon"), Icon20x20));
 	return Style;
 }
 
